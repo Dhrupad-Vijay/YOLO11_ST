@@ -55,16 +55,16 @@ st.header("Object detection using YOLO11")
 st.sidebar.header(" Model Configuration")
 
 # Choose Model: Detection, Segmentation or Pose Estimation
-model_type = st.sidebar.radio("Select an option", ["Detection", "Classification", "Segmentation"])
+model_type = st.sidebar.radio("Select an option", ["Detection", "Segmentation"])
 
 # Select confidence value
-confidence_value = float(st.sidebar.slider("Select model confidence value", 25, 100, 70))/100
+confidence_value = float(st.sidebar.slider("Select model confidence value", 25, 100, 50))/100
 
 # Selecting model type
 if model_type == "Detection":
     model_path = Path(DETECTION_MODEL)
-elif model_type == "Classification":
-    model_path = Path(CLASSIFICATION_MODEL)
+# elif model_type == "Classification":
+#     model_path = Path(CLASSIFICATION_MODEL)
 elif model_type == "Segmentation":
     model_path = Path(SEGMENTATION_MODEL)
 
