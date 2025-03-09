@@ -1,5 +1,4 @@
 import os
-os.system("apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0")
 import cv2
 import streamlit as st
 from pathlib import Path
