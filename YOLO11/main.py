@@ -1,8 +1,10 @@
-import cv2 # type: ignore
+import os
+os.system("apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0")
+import cv2
 import streamlit as st
 from pathlib import Path
 import sys
-from ultralytics import YOLO # type: ignore
+from ultralytics import YOLO
 from PIL import Image
 
 # Get absolute path of the current file
@@ -84,7 +86,7 @@ source_radio = st.sidebar.radio(
 source_image = None
 if source_radio == IMAGE:
     source_image = st.sidebar.file_uploader(
-        "Choose an image...", type = ('jpg', 'png', 'jpeg', 'bmp', 'heic')
+        "Upload an image...", type = ('jpg', 'png', 'jpeg', 'bmp', 'heic')
     )
     col1, col2 = st.columns(2)
     with col1:
@@ -92,10 +94,10 @@ if source_radio == IMAGE:
             if source_image is None:
                 default_image_path = str(DEFAULT_IMAGE)
                 default_image = Image.open(default_image_path)
-                st.image(default_image_path, caption="Default Image", use_column_width=True)
+                st.image(default_image_path, caption="Default Image", use_container_width =True)
             else:
                 uploaded_image = Image.open(source_image)
-                st.image(source_image, caption="Uploaded Image", use_column_width=True)
+                st.image(source_image, caption="Uploaded Image", use_container_width =True)
         except Exception as e:
             st.error(f'Error occured while opening image')
             st.error(e)
@@ -104,13 +106,13 @@ if source_radio == IMAGE:
             if source_image is None:
                 default_detected_image_path = str(DEFAULT_DETECT_IMAGE)
                 default_detected_image = Image.open(default_detected_image_path)
-                st.image(default_detected_image_path, caption="Detection image output", use_column_width=True)
+                st.image(default_detected_image_path, caption="Detection image output", use_container_width =True)
             else:
                 if st.sidebar.button("Detect objects"):
                     result = model.predict(uploaded_image, conf = confidence_value)
                     boxes = result[0].boxes
                     result_plotted = result[0].plot()[:,:,::-1]
-                    st.image(result_plotted, caption="Detected image", use_column_width=True)
+                    st.image(result_plotted, caption="Detected image", use_container_width =True)
                     
                     try:
                         with st.expander("Detection Results"):
